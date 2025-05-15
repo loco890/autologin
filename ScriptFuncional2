@@ -2,6 +2,7 @@
 
 #Base rout of the Script for logs
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LOG_FILE="$SCRIPT_DIR/autologin.log"
 
 LOCKFILE="$SCRIPT_DIR/.autologin.lock"
 
@@ -34,7 +35,6 @@ MESSAGE="⚠️ Atención: El autologin falló 5 veces seguidas. Revisa la red d
 LOGIN_URL="https://login.ruhr-uni-bochum.de/cgi-bin/laklogin"
 IPADDR="10.4.30.34"
 CHECK_HOST="1.1.1.1"  # o cualquier IP confiable (como 1.1.1.1)
-LOG_FILE="$SCRIPT_DIR/autologin.log"
 
 # Control de intentos fallidos
 MAX_FAILED=5

@@ -17,12 +17,17 @@ touch "$LOCKFILE"
 # Asegurar que se borre el lock si el script termina
 trap "rm -f '$LOCKFILE'" EXIT
 
+# Mirar si el Archivo de credeciales existe
+if [ ! -f "$SCRIPT_DIR/credential.conf" ]; then
+    echo "$(date '+%F %T') - ERROR: Archivo de credenciales no encontrado." >> "$LOG_FILE"
+    exit 1
+fi
+
 #Cositas
 source "$SCRIPT_DIR/credential.conf"
 
+
 # Variables de Telegram
-TELEGRAM_TOKEN="8057933824:AAEOi6GI1vSN7KMIO02v7rlQsmuwEu33egs"
-CHAT_ID="5366303158"  # Reemplaza con tu chat_id real
 MESSAGE="⚠️ Atención: El autologin falló 5 veces seguidas. Revisa la red de RUB."
 
 # Configuraciones

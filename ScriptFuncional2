@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#Base rout of the Script for logs
+# Obtenemos la ruta de este Script para poder crar los Logs dentro de la carpeta
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_FILE="$SCRIPT_DIR/autologin.log"
 
 LOCKFILE="$SCRIPT_DIR/.autologin.lock"
 
-# Si ya hay otra instancia corriendo, salir
+# Si ya hay otra instancia corriendo, salir para evitar duplicaciones que podria dar problemas
 if [ -e "$LOCKFILE" ]; then
     echo "$(date '+%F %T') - Ya hay una instancia en ejecución. Saliendo." >> "$LOG_FILE"
     exit 1
@@ -79,8 +79,8 @@ while true; do
         if [ "$FAILED_COUNT" -ge "$MAX_FAILED" ]; then
             echo "$(date '+%F %T') - Se alcanzó el máximo de intentos fallidos. Durmiendo 20 minutos..." >> "$LOG_FILE"
  
-			# Enviar alerta a Telegram
-			curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
+		# Enviar alerta a Telegram
+		curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" \
     		-d chat_id="$CHAT_ID" \
     		-d text="$MESSAGE"
     		
